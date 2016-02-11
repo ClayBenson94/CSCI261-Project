@@ -31,10 +31,11 @@ public class Graph {
         //Fill the matrix with random values
         Random randGen = new Random();
         for (int column = 0; column < n; ++column) {
-            for (int row = 0; row < n; ++row) {
+            for (int row = column; row < n; ++row) {
                 //Introduce random (p) chance here, right now we just always add
                 int randomNum = randGen.nextInt(n) + 1 ;
                 adjMatrix.get(row).set(column, randomNum);
+                adjMatrix.get(column).set(row, randomNum);
             }
         }
 
