@@ -30,12 +30,16 @@ public class Graph {
 
         //Fill the matrix with random values
         Random randGen = new Random();
+        double p = .5; //Hard coded right now, will be taken from input later
+        double connectRand;
         for (int column = 0; column < n; ++column) {
             for (int row = column; row < n; ++row) {
-                //Introduce random (p) chance here, right now we just always add
-                int randomNum = randGen.nextInt(n) + 1 ;
-                adjMatrix.get(row).set(column, randomNum);
-                adjMatrix.get(column).set(row, randomNum);
+                connectRand = (double)(randGen.nextInt(101))/100;
+                if (connectRand < p) {
+                    int randomNum = randGen.nextInt(n) + 1 ;
+                    adjMatrix.get(row).set(column, randomNum);
+                    adjMatrix.get(column).set(row, randomNum);
+                }
             }
         }
 

@@ -6,6 +6,6 @@ import java.util.ArrayList;
 public class MST {
 
     public static void main(String[] args) {
-        Graph myGraph = new Graph(8);
+        Graph myGraph = new Graph(5);
     }
 }
