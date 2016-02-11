@@ -37,7 +37,7 @@ public class MST {
         adjList.add(adjListRow);
 
         for (int i = 0; i < adjList.size(); ++i) {
-            System.out.print(String.format("Node %d has adjacency: ",i));
+            System.out.print(String.format("The node %d has adjacency: ",i));
             for (int j = 0; j < adjList.get(i).size(); ++j) {
                 System.out.print(adjList.get(i).get(j));
                 System.out.print(" ");
