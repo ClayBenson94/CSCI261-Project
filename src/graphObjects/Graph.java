@@ -7,18 +7,18 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Clay on 2/11/2016.
+ * @author Clay
  */
 public class Graph {
 
     private ArrayList<ArrayList<Integer>> adjMatrix;
     private ArrayList<ArrayList<Integer>> adjList;
 
-    public Graph(int n, double p) {
+    public Graph(int n, int seed, double p) {
         System.out.println(String.format("Making graphs of size %d!\n",n));
 
-        adjMatrix = new ArrayList<ArrayList<Integer>>();
-        adjList = new ArrayList<ArrayList<Integer>>();
+        adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
+        adjList = new ArrayList<>(); //ArrayList of ArrayLists
 
         initAdjacencies(n, p);
     }
@@ -37,7 +37,7 @@ public class Graph {
 
         //Initialize the matrix to all zeroes to begin
         for (int i = 0; i < n; ++i) {
-            adjMatrix.add(new ArrayList<Integer>(Collections.nCopies(n, 0))); //Add a blank row (zeroes)
+            adjMatrix.add(new ArrayList<>(Collections.nCopies(n, 0))); //ArrayList of Integers
         }
 
         //Fill the matrix with random values
