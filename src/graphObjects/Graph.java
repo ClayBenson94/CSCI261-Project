@@ -1,9 +1,7 @@
 package graphObjects;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,12 +13,15 @@ public class Graph {
 
     private ArrayList<ArrayList<Integer>> adjMatrix;
     private ArrayList<ArrayList<ArrayList<Integer>>> adjList;
+    private ArrayList<Integer> visitedList;
+    private ArrayList<Integer> predecessors;
 
     public Graph(int n, long seed, double p) {
         adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
         adjList = new ArrayList<>(); //ArrayList of ArrayLists of ArrayLists
 
         initAdjacencies(n, seed, p);
+        System.out.println(DFS(4, n));
     }
 
 
@@ -78,6 +79,9 @@ public class Graph {
         System.out.println(String.format("Time to generate the graph: %d milliseconds%n",end_time-start_time));
     }
 
+    /**
+     * Prints out a readable version of this graph's adjacency matrix
+     */
     public void printAdjacencyMatrix() {
         System.out.println("The graph as an adjacency matrix:\n");
         for (ArrayList<Integer> row : adjMatrix) {
@@ -89,7 +93,7 @@ public class Graph {
     }
 
     /**
-     * REALLY REALLY CRAPPY PLEASE DONT LOOK AT THIS
+     * Prints out a readable version of this graph's adjacency list
      */
     public void printAdjacencyList() {
 
@@ -105,6 +109,31 @@ public class Graph {
                 System.out.print(String.format("%d(%d) ",nodeVal,weightVal));
             }
             System.out.print("\n\n");
+        }
+    }
+
+    /**
+     * Performs a depth first search on the graph, and prints out the Vertices and Predecessors of those vertices
+     * @param vertex the ID of the vertex to start with
+     * @param n the total number of vertices
+     * @return boolean representing whether or not the graph is connected (if # of nodes visited = n)
+     */
+    public boolean DFS(int vertex, int n) {
+        visitedList = new ArrayList<>();
+        predecessors = new ArrayList<>();
+        DFS_VISIT(vertex);
+        System.out.println(visitedList);
+        System.out.println(predecessors);
+        return (visitedList.size() == n);
+    }
+
+    public void DFS_VISIT(int vertex) {
+        visitedList.add(vertex);
+        System.out.println(String.format("Visiting node %d",vertex));
+        for (ArrayList<Integer> neighbor : adjList.get(vertex)) {
+            if (!visitedList.contains(neighbor.get(0))) {
+                DFS_VISIT(neighbor.get(0));
+            }
         }
     }
 }
