@@ -37,6 +37,7 @@ public class Graph {
         //Initialize the matrix to all zeroes to begin
         for (int i = 0; i < n; ++i) {
             adjMatrix.add(new ArrayList<>(Collections.nCopies(n, 0))); //ArrayList of Integers
+            adjList.add(new ArrayList<>()); //ArrayList of Integers
         }
 
         //Fill the matrix with random values
@@ -56,9 +57,17 @@ public class Graph {
                 if (connectRand <= p) {
                     adjMatrix.get(row).set(column, weight);
                     adjMatrix.get(column).set(row, weight);
+
+                    adjList.get(column).add(row);
+                    adjList.get(column).add(weight);
+
+                    adjList.get(row).add(column);
+                    adjList.get(row).add(weight);
                 }
             }
         }
+
+        //Generate AdjacencyList from the AdjacencyMatrix
 
         long end_time = System.currentTimeMillis();
 
@@ -68,6 +77,20 @@ public class Graph {
     public void printAdjacencyMatrix() {
         System.out.println("The graph as an adjacency matrix:\n");
         for (ArrayList<Integer> row : adjMatrix) {
+            for (int rowItem : row) {
+                System.out.print(Integer.toString(rowItem)+"   ");
+            }
+            System.out.print("\n\n");
+        }
+    }
+
+    /**
+     * REALLY REALLY CRAPPY PLEASE DONT LOOK AT THIS
+     */
+    public void printAdjacencyList() {
+        System.out.println("The graph as an adjacency list:\n");
+        for (ArrayList<Integer> row : adjList) {
+            System.out.println(String.format("%d-> ",0));
             for (int rowItem : row) {
                 System.out.print(Integer.toString(rowItem)+"   ");
             }
