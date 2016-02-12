@@ -32,6 +32,8 @@ public class Graph {
      */
     public void initAdjacencies(int n, long seed, double p) {
 
+        long start_time = System.currentTimeMillis();
+
         //Initialize the matrix to all zeroes to begin
         for (int i = 0; i < n; ++i) {
             adjMatrix.add(new ArrayList<>(Collections.nCopies(n, 0))); //ArrayList of Integers
@@ -58,7 +60,9 @@ public class Graph {
             }
         }
 
-        printAdjacencyMatrix();
+        long end_time = System.currentTimeMillis();
+
+        System.out.println(String.format("Time to generate the graph: %d milliseconds%n",end_time-start_time));
     }
 
     public void printAdjacencyMatrix() {

@@ -43,6 +43,7 @@ public class MST {
         System.out.println(String.format("TEST: n=%d, seed=%d, p=%f", n, seed, p));
 
         Graph myGraph = new Graph(n, seed, p);
+        myGraph.printAdjacencyMatrix();
     }
 
     /**
