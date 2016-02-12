@@ -12,16 +12,25 @@ import java.util.Random;
 public class Graph {
 
     private ArrayList<ArrayList<Integer>> adjMatrix;
+    private ArrayList<ArrayList<Integer>> adjList;
 
     public Graph(int n, double p) {
         System.out.println(String.format("Making graphs of size %d!\n",n));
 
         adjMatrix = new ArrayList<ArrayList<Integer>>();
+        adjList = new ArrayList<ArrayList<Integer>>();
 
-        initAdjMatrix(n, p);
+        initAdjacencies(n, p);
     }
 
-    public void initAdjMatrix(int n, double p) {
+
+    /**
+     * Creates a randomly connected, undirected, weighted graph.
+     * Is represented as both an Adjacency Matrix and an Adjacency List.
+     * @param n the number of vertices in the graph
+     * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
+     */
+    public void initAdjacencies(int n, double p) {
 
         //Intro message
         System.out.println("=====Making Adjacency Matrix=====");
