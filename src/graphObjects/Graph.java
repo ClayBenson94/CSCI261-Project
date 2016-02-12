@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * Holds multiple representations of an undirected weighted graph.
+ * Uses an Adjacency Matrix and an Adjacency Array
  * @author Clay
  */
 public class Graph {
@@ -14,13 +16,11 @@ public class Graph {
     private ArrayList<ArrayList<Integer>> adjMatrix;
     private ArrayList<ArrayList<Integer>> adjList;
 
-    public Graph(int n, int seed, double p) {
-        System.out.println(String.format("Making graphs of size %d!\n",n));
-
+    public Graph(int n, long seed, double p) {
         adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
         adjList = new ArrayList<>(); //ArrayList of ArrayLists
 
-        initAdjacencies(n, p);
+        initAdjacencies(n, seed, p);
     }
 
 
@@ -30,10 +30,7 @@ public class Graph {
      * @param n the number of vertices in the graph
      * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
      */
-    public void initAdjacencies(int n, double p) {
-
-        //Intro message
-        System.out.println("=====Making Adjacency Matrix=====");
+    public void initAdjacencies(int n, long seed, double p) {
 
         //Initialize the matrix to all zeroes to begin
         for (int i = 0; i < n; ++i) {
@@ -41,26 +38,32 @@ public class Graph {
         }
 
         //Fill the matrix with random values
-        Random randGen = new Random();
+        Random edgeGen = new Random();
+        Random weightGen = new Random();
+        edgeGen.setSeed(seed);
+        weightGen.setSeed(seed*2);
         double connectRand;
         for (int column = 0; column < n; ++column) {
             for (int row = column; row < n; ++row) {
-                connectRand = (double) (randGen.nextInt(101)) / 100;
+                connectRand = (double) (edgeGen.nextInt(101)) / 100;
                 if (connectRand <= p) {
-                    int randomNum = randGen.nextInt(n) + 1;
+                    int randomNum = weightGen.nextInt(n) + 1;
                     adjMatrix.get(row).set(column, randomNum);
                     adjMatrix.get(column).set(row, randomNum);
                 }
             }
         }
 
-        //Print the matrix
-        for (int i = 0; i < n; ++i) {
-            System.out.println(adjMatrix.get(i));
+        printAdjacencyMatrix();
+    }
+
+    public void printAdjacencyMatrix() {
+        System.out.println("The graph as an adjacency matrix:\n");
+        for (ArrayList<Integer> row : adjMatrix) {
+            for (int rowItem : row) {
+                System.out.print(Integer.toString(rowItem)+"   ");
+            }
+            System.out.print("\n\n");
         }
-
-        //Outtro message
-        System.out.println("====Finished Adjacency Matrix====");
-
     }
 }

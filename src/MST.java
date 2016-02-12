@@ -22,10 +22,10 @@ public class MST {
         BufferedReader bufferedReader = new BufferedReader(reader);
 
         int n = 0;
-        int seed = 0;
+        long seed = 0;
         try {
             n = Integer.parseInt(bufferedReader.readLine());
-            seed = Integer.parseInt(bufferedReader.readLine());
+            seed = Long.parseLong(bufferedReader.readLine());
         } catch (IOException|NumberFormatException e) {
             System.out.println("n and seed must be integers");
             System.exit(0);
@@ -40,6 +40,7 @@ public class MST {
         }
 
         valueErrorCheck(n, p);
+        System.out.println(String.format("TEST: n=%d, seed=%d, p=%f", n, seed, p));
 
         Graph myGraph = new Graph(n, seed, p);
     }
