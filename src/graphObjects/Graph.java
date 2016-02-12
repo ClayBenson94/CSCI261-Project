@@ -13,15 +13,18 @@ public class Graph {
 
     private ArrayList<ArrayList<Integer>> adjMatrix;
 
-    public Graph(int n) {
+    public Graph(int n, double p) {
         System.out.println(String.format("Making graphs of size %d!\n",n));
 
         adjMatrix = new ArrayList<ArrayList<Integer>>();
 
-        makeAdjMatrix(n);
+        initAdjMatrix(n, p);
     }
 
-    public ArrayList<ArrayList<Integer>> makeAdjMatrix(int n) {
+    public void initAdjMatrix(int n, double p) {
+
+        //Intro message
+        System.out.println("=====Making Adjacency Matrix=====");
 
         //Initialize the matrix to all zeroes to begin
         for (int i = 0; i < n; ++i) {
@@ -30,13 +33,12 @@ public class Graph {
 
         //Fill the matrix with random values
         Random randGen = new Random();
-        double p = .5; //Hard coded right now, will be taken from input later
         double connectRand;
         for (int column = 0; column < n; ++column) {
             for (int row = column; row < n; ++row) {
-                connectRand = (double)(randGen.nextInt(101))/100;
-                if (connectRand < p) {
-                    int randomNum = randGen.nextInt(n) + 1 ;
+                connectRand = (double) (randGen.nextInt(101)) / 100;
+                if (connectRand <= p) {
+                    int randomNum = randGen.nextInt(n) + 1;
                     adjMatrix.get(row).set(column, randomNum);
                     adjMatrix.get(column).set(row, randomNum);
                 }
@@ -48,6 +50,8 @@ public class Graph {
             System.out.println(adjMatrix.get(i));
         }
 
-        return adjMatrix;
+        //Outtro message
+        System.out.println("====Finished Adjacency Matrix====");
+
     }
 }
