@@ -14,11 +14,11 @@ import java.util.Random;
 public class Graph {
 
     private ArrayList<ArrayList<Integer>> adjMatrix;
-    private ArrayList<ArrayList<Integer>> adjList;
+    private ArrayList<ArrayList<ArrayList<Integer>>> adjList;
 
     public Graph(int n, long seed, double p) {
         adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
-        adjList = new ArrayList<>(); //ArrayList of ArrayLists
+        adjList = new ArrayList<>(); //ArrayList of ArrayLists of ArrayLists
 
         initAdjacencies(n, seed, p);
     }
@@ -47,30 +47,34 @@ public class Graph {
         weightGen.setSeed(seed*2);
         double connectRand;
         int weight;
+        ArrayList<Integer> addList;
         for (int column = 0; column < n; ++column) {
             for (int row = column; row < n; ++row) {
-                weight = weightGen.nextInt(n) + 1;
                 connectRand = (double) (edgeGen.nextInt(101)) / 100;
-                if (row == column) {
-                    weight = 0;
-                }
-                if (connectRand <= p) {
-                    adjMatrix.get(row).set(column, weight);
-                    adjMatrix.get(column).set(row, weight);
+                if (row != column) {
+                    weight = weightGen.nextInt(n) + 1;
+                    if (connectRand <= p) {
 
-                    adjList.get(column).add(row);
-                    adjList.get(column).add(weight);
+                        //Add AdjMatrix elements
+                        adjMatrix.get(row).set(column, weight);
+                        adjMatrix.get(column).set(row, weight);
 
-                    adjList.get(row).add(column);
-                    adjList.get(row).add(weight);
+                        //Add AdjList element
+                        addList = new ArrayList<>();
+                        addList.add(row);
+                        addList.add(weight);
+                        adjList.get(column).add(addList);
+
+                        //Add AdjList element
+                        addList = new ArrayList<>();
+                        addList.add(column);
+                        addList.add(weight);
+                        adjList.get(row).add(addList);
+                    }
                 }
             }
         }
-
-        //Generate AdjacencyList from the AdjacencyMatrix
-
         long end_time = System.currentTimeMillis();
-
         System.out.println(String.format("Time to generate the graph: %d milliseconds%n",end_time-start_time));
     }
 
@@ -88,11 +92,17 @@ public class Graph {
      * REALLY REALLY CRAPPY PLEASE DONT LOOK AT THIS
      */
     public void printAdjacencyList() {
+
+        int nodeVal;
+        int weightVal;
+
         System.out.println("The graph as an adjacency list:\n");
-        for (ArrayList<Integer> row : adjList) {
-            System.out.println(String.format("%d-> ",0));
-            for (int rowItem : row) {
-                System.out.print(Integer.toString(rowItem)+"   ");
+        for (int i = 0; i < adjList.size(); ++i) {
+            System.out.print(String.format("%d-> ",i));
+            for (int j = 0; j < adjList.get(i).size(); ++j) {
+                nodeVal = adjList.get(i).get(j).get(0);
+                weightVal = adjList.get(i).get(j).get(1);
+                System.out.print(String.format("%d(%d) ",nodeVal,weightVal));
             }
             System.out.print("\n\n");
         }
