@@ -43,13 +43,17 @@ public class Graph {
         edgeGen.setSeed(seed);
         weightGen.setSeed(seed*2);
         double connectRand;
+        int weight;
         for (int column = 0; column < n; ++column) {
             for (int row = column; row < n; ++row) {
+                weight = weightGen.nextInt(n) + 1;
                 connectRand = (double) (edgeGen.nextInt(101)) / 100;
+                if (row == column) {
+                    weight = 0;
+                }
                 if (connectRand <= p) {
-                    int randomNum = weightGen.nextInt(n) + 1;
-                    adjMatrix.get(row).set(column, randomNum);
-                    adjMatrix.get(column).set(row, randomNum);
+                    adjMatrix.get(row).set(column, weight);
+                    adjMatrix.get(column).set(row, weight);
                 }
             }
         }
