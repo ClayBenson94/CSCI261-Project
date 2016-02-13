@@ -25,7 +25,7 @@ public class Graph {
         edgeGen.setSeed(seed);
         weightGen.setSeed(seed*2);
 
-        initAdjacencies(n, seed, p);
+        initAdjacencies(n, p);
     }
 
 
@@ -35,7 +35,7 @@ public class Graph {
      * @param n the number of vertices in the graph
      * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
      */
-    public void initAdjacencies(int n, long seed, double p) {
+    public void initAdjacencies(int n, double p) {
         long start_time = System.currentTimeMillis();
         do {
             start_time = System.currentTimeMillis();
