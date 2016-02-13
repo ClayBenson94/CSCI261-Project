@@ -6,9 +6,11 @@ package graphObjects;
 public class Vertex {
 
     private int index;
+    private Vertex parent;
 
-    public Vertex(int index) {
+    public Vertex(int index, Vertex parent) {
         this.index = index;
+        this.parent = parent;
     }
 
     public int getIndex() {
@@ -19,8 +21,19 @@ public class Vertex {
         this.index = index;
     }
 
+    public Vertex getParent() {
+        return parent;
+    }
+
+    public void setParent(Vertex parent) {
+        this.parent = parent;
+    }
+
     @Override
     public String toString() {
-        return String.format("I am a Vertex with ID %d!", getIndex());
+        if (this.getParent() == null) {
+            return String.format("%d with no parent", this.getIndex());
+        }
+        return String.format("%d with parent %s", this.getIndex(), this.getParent());
     }
 }

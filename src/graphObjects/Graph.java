@@ -2,6 +2,7 @@ package graphObjects;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -14,7 +15,7 @@ public class Graph {
     private ArrayList<ArrayList<Integer>> adjMatrix;
     private ArrayList<ArrayList<ArrayList<Integer>>> adjList;
     private ArrayList<Integer> visitedList;
-    private ArrayList<Integer> predecessors;
+    private HashMap<Integer, Integer> predecessors;
     private Random edgeGen;
     private Random weightGen;
 
@@ -123,15 +124,14 @@ public class Graph {
      */
     public boolean DFS(int vertex, int n) {
         visitedList = new ArrayList<>();
-        predecessors = new ArrayList<>();
+        predecessors = new HashMap<>();
         DFS_VISIT(vertex, -1);
         return (visitedList.size() == n);
     }
 
     public void DFS_VISIT(int vertex, int parent) {
         visitedList.add(vertex);
-        predecessors.add(parent);
-//        System.out.println(String.format("Visiting node %d",vertex));
+        predecessors.put(vertex, parent);
         for (ArrayList<Integer> neighbor : adjList.get(vertex)) {
             if (!visitedList.contains(neighbor.get(0))) {
                 DFS_VISIT(neighbor.get(0), vertex);
@@ -142,10 +142,18 @@ public class Graph {
     public void printDFSInformation() {
         System.out.println("Depth First Search:");
 
+        ArrayList<Integer> printVertices = new ArrayList<>();
+        ArrayList<Integer> printPredecessors = new ArrayList<>();
+
+        for (HashMap.Entry<Integer,Integer> entry : predecessors.entrySet()) {
+            printVertices.add(entry.getKey());
+            printPredecessors.add(entry.getValue());
+        }
+
         System.out.println("Vertices:");
-        System.out.println(visitedList);
+        System.out.println(printVertices);
 
         System.out.println("Predecessors:");
-        System.out.println(predecessors);
+        System.out.println(printPredecessors);
     }
 }
