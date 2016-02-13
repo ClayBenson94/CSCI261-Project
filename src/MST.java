@@ -9,7 +9,10 @@ public class MST {
 
     public static void main(String[] args) {
 
-        String fileName = "input1";
+        String fileName = "input1"; //Default
+        if (args.length > 0) {
+            fileName = args[0];
+        }
         String line = null;
 
         FileReader reader = null;
@@ -43,9 +46,11 @@ public class MST {
         System.out.println(String.format("TEST: n=%d, seed=%d, p=%f", n, seed, p));
 
         Graph myGraph = new Graph(n, seed, p);
-        myGraph.printAdjacencyMatrix();
-        myGraph.printAdjacencyList();
-        myGraph.printDFSInformation();
+        if (n < 10) {
+            myGraph.printAdjacencyMatrix();
+            myGraph.printAdjacencyList();
+            myGraph.printDFSInformation();
+        }
     }
 
     /**

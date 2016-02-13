@@ -25,7 +25,6 @@ public class Graph {
         weightGen.setSeed(seed*2);
 
         initAdjacencies(n, seed, p);
-        System.out.println(DFS(4, n));
     }
 
 
@@ -38,7 +37,6 @@ public class Graph {
     public void initAdjacencies(int n, long seed, double p) {
         long start_time = System.currentTimeMillis();
         do {
-            System.out.println("ATTEMPTING GRAPH GEN");
             start_time = System.currentTimeMillis();
 
             //Initialize the matrix to all zeroes to begin
