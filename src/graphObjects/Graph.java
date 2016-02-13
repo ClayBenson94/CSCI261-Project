@@ -53,7 +53,7 @@ public class Graph {
             ArrayList<Integer> addList;
             for (int column = 0; column < n; ++column) {
                 for (int row = column; row < n; ++row) {
-                    connectRand = (double) (edgeGen.nextInt(101)) / 100;
+                    connectRand = edgeGen.nextDouble();
                     if (row != column) {
                         weight = weightGen.nextInt(n) + 1;
                         if (connectRand <= p) {
