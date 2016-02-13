@@ -122,18 +122,26 @@ public class Graph {
         visitedList = new ArrayList<>();
         predecessors = new ArrayList<>();
         DFS_VISIT(vertex);
-        System.out.println(visitedList);
-        System.out.println(predecessors);
         return (visitedList.size() == n);
     }
 
     public void DFS_VISIT(int vertex) {
         visitedList.add(vertex);
-        System.out.println(String.format("Visiting node %d",vertex));
+//        System.out.println(String.format("Visiting node %d",vertex));
         for (ArrayList<Integer> neighbor : adjList.get(vertex)) {
             if (!visitedList.contains(neighbor.get(0))) {
                 DFS_VISIT(neighbor.get(0));
             }
         }
+    }
+
+    public void printDFSInformation() {
+        System.out.println("Depth First Search:");
+
+        System.out.println("Vertices:");
+        System.out.println(visitedList);
+
+        System.out.println("Predecessors:");
+        System.out.println(predecessors);
     }
 }

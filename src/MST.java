@@ -45,6 +45,7 @@ public class MST {
         Graph myGraph = new Graph(n, seed, p);
         myGraph.printAdjacencyMatrix();
         myGraph.printAdjacencyList();
+        myGraph.printDFSInformation();
     }
 
     /**
