@@ -52,28 +52,28 @@ public class Graph {
             int weight;
             ArrayList<Integer> addList;
             for (int column = 0; column < n; ++column) {
-                for (int row = column; row < n; ++row) {
+                for (int row = column+1; row < n; ++row) { //Dont want elements on the diagonal
                     connectRand = edgeGen.nextDouble();
-                    if (row != column) {
+                    if (connectRand <= p) {
+
+                        //Generate weights
                         weight = weightGen.nextInt(n) + 1;
-                        if (connectRand <= p) {
 
-                            //Add AdjMatrix elements
-                            adjMatrix.get(row).set(column, weight);
-                            adjMatrix.get(column).set(row, weight);
+                        //Add AdjMatrix elements
+                        adjMatrix.get(row).set(column, weight);
+                        adjMatrix.get(column).set(row, weight);
 
-                            //Add AdjList element
-                            addList = new ArrayList<>();
-                            addList.add(row);
-                            addList.add(weight);
-                            adjList.get(column).add(addList);
+                        //Add AdjList element
+                        addList = new ArrayList<>();
+                        addList.add(row);
+                        addList.add(weight);
+                        adjList.get(column).add(addList);
 
-                            //Add AdjList element
-                            addList = new ArrayList<>();
-                            addList.add(column);
-                            addList.add(weight);
-                            adjList.get(row).add(addList);
-                        }
+                        //Add AdjList element
+                        addList = new ArrayList<>();
+                        addList.add(column);
+                        addList.add(weight);
+                        adjList.get(row).add(addList);
                     }
                 }
             }
