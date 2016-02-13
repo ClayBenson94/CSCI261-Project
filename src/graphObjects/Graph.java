@@ -15,10 +15,14 @@ public class Graph {
     private ArrayList<ArrayList<ArrayList<Integer>>> adjList;
     private ArrayList<Integer> visitedList;
     private ArrayList<Integer> predecessors;
+    private Random edgeGen;
+    private Random weightGen;
 
     public Graph(int n, long seed, double p) {
-        adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
-        adjList = new ArrayList<>(); //ArrayList of ArrayLists of ArrayLists
+        edgeGen = new Random();
+        weightGen = new Random();
+        edgeGen.setSeed(seed);
+        weightGen.setSeed(seed*2);
 
         initAdjacencies(n, seed, p);
         System.out.println(DFS(4, n));
@@ -32,49 +36,50 @@ public class Graph {
      * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
      */
     public void initAdjacencies(int n, long seed, double p) {
-
         long start_time = System.currentTimeMillis();
+        do {
+            System.out.println("ATTEMPTING GRAPH GEN");
+            start_time = System.currentTimeMillis();
 
-        //Initialize the matrix to all zeroes to begin
-        for (int i = 0; i < n; ++i) {
-            adjMatrix.add(new ArrayList<>(Collections.nCopies(n, 0))); //ArrayList of Integers
-            adjList.add(new ArrayList<>()); //ArrayList of Integers
-        }
+            //Initialize the matrix to all zeroes to begin
+            adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
+            adjList = new ArrayList<>(); //ArrayList of ArrayLists of ArrayLists
+            for (int i = 0; i < n; ++i) {
+                adjMatrix.add(new ArrayList<>(Collections.nCopies(n, 0))); //ArrayList of Integers
+                adjList.add(new ArrayList<>()); //ArrayList of Integers
+            }
 
-        //Fill the matrix with random values
-        Random edgeGen = new Random();
-        Random weightGen = new Random();
-        edgeGen.setSeed(seed);
-        weightGen.setSeed(seed*2);
-        double connectRand;
-        int weight;
-        ArrayList<Integer> addList;
-        for (int column = 0; column < n; ++column) {
-            for (int row = column; row < n; ++row) {
-                connectRand = (double) (edgeGen.nextInt(101)) / 100;
-                if (row != column) {
-                    weight = weightGen.nextInt(n) + 1;
-                    if (connectRand <= p) {
+            //Fill the matrix with random values
+            double connectRand;
+            int weight;
+            ArrayList<Integer> addList;
+            for (int column = 0; column < n; ++column) {
+                for (int row = column; row < n; ++row) {
+                    connectRand = (double) (edgeGen.nextInt(101)) / 100;
+                    if (row != column) {
+                        weight = weightGen.nextInt(n) + 1;
+                        if (connectRand <= p) {
 
-                        //Add AdjMatrix elements
-                        adjMatrix.get(row).set(column, weight);
-                        adjMatrix.get(column).set(row, weight);
+                            //Add AdjMatrix elements
+                            adjMatrix.get(row).set(column, weight);
+                            adjMatrix.get(column).set(row, weight);
 
-                        //Add AdjList element
-                        addList = new ArrayList<>();
-                        addList.add(row);
-                        addList.add(weight);
-                        adjList.get(column).add(addList);
+                            //Add AdjList element
+                            addList = new ArrayList<>();
+                            addList.add(row);
+                            addList.add(weight);
+                            adjList.get(column).add(addList);
 
-                        //Add AdjList element
-                        addList = new ArrayList<>();
-                        addList.add(column);
-                        addList.add(weight);
-                        adjList.get(row).add(addList);
+                            //Add AdjList element
+                            addList = new ArrayList<>();
+                            addList.add(column);
+                            addList.add(weight);
+                            adjList.get(row).add(addList);
+                        }
                     }
                 }
             }
-        }
+        } while (!DFS(0, n));
         long end_time = System.currentTimeMillis();
         System.out.println(String.format("Time to generate the graph: %d milliseconds%n",end_time-start_time));
     }
@@ -121,16 +126,17 @@ public class Graph {
     public boolean DFS(int vertex, int n) {
         visitedList = new ArrayList<>();
         predecessors = new ArrayList<>();
-        DFS_VISIT(vertex);
+        DFS_VISIT(vertex, -1);
         return (visitedList.size() == n);
     }
 
-    public void DFS_VISIT(int vertex) {
+    public void DFS_VISIT(int vertex, int parent) {
         visitedList.add(vertex);
+        predecessors.add(parent);
 //        System.out.println(String.format("Visiting node %d",vertex));
         for (ArrayList<Integer> neighbor : adjList.get(vertex)) {
             if (!visitedList.contains(neighbor.get(0))) {
-                DFS_VISIT(neighbor.get(0));
+                DFS_VISIT(neighbor.get(0), vertex);
             }
         }
     }
