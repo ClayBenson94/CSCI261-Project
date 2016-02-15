@@ -44,7 +44,7 @@ public class MST {
 
         valueErrorCheck(n, p);
         System.out.print("\n");
-        System.out.println(String.format("TEST: n=%d, seed=%d, p=%f", n, seed, p));
+        System.out.println(String.format("TEST: n=%d, seed=%d, p=%s", n, seed, Double.toString(p)));
 
         Graph myGraph = new Graph(n, seed, p);
         if (n < 10) {
