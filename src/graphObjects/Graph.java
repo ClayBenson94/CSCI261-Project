@@ -104,7 +104,7 @@ public class Graph {
         int nodeVal;
         int weightVal;
 
-        System.out.println("The graph as an adjacency list:\n");
+        System.out.println("The graph as an adjacency list:");
         for (int i = 0; i < adjList.size(); ++i) {
             System.out.print(String.format("%d-> ",i));
             for (int j = 0; j < adjList.get(i).size(); ++j) {
@@ -112,8 +112,9 @@ public class Graph {
                 weightVal = adjList.get(i).get(j).get(1);
                 System.out.print(String.format("%d(%d) ",nodeVal,weightVal));
             }
-            System.out.print("\n\n");
+            System.out.print("\n");
         }
+        System.out.print("\n");
     }
 
     /**
@@ -140,7 +141,7 @@ public class Graph {
     }
 
     public void printDFSInformation() {
-        System.out.println("Depth First Search:");
+        System.out.println("Depth-First Search:");
 
         ArrayList<Integer> printVertices = new ArrayList<>();
         ArrayList<Integer> printPredecessors = new ArrayList<>();
@@ -151,9 +152,15 @@ public class Graph {
         }
 
         System.out.println("Vertices:");
-        System.out.println(printVertices);
+        System.out.print(" "); //Account for the fact that the predecessor below has a - in front (so they line up)
+        for (int item : printVertices) {
+            System.out.print(String.format("%d ",item));
+        }
+        System.out.print("\n");
 
         System.out.println("Predecessors:");
-        System.out.println(printPredecessors);
+        for (int item : printPredecessors) {
+            System.out.print(String.format("%d ",item));
+        }
     }
 }
