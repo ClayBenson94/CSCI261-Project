@@ -112,7 +112,7 @@ public class Graph {
                 weightVal = adjList.get(i).get(j).get(1);
                 System.out.print(String.format("%d(%d) ",nodeVal,weightVal));
             }
-            System.out.print("\n\n");
+            System.out.print("\n");
         }
     }
 
@@ -151,6 +151,7 @@ public class Graph {
         }
 
         System.out.println("Vertices:");
+        System.out.print(" "); //Account for the fact that the predecessor below has a - in front (so they line up)
         for (int item : printVertices) {
             System.out.print(String.format("%d ",item));
         }
