@@ -104,7 +104,7 @@ public class Graph {
         int nodeVal;
         int weightVal;
 
-        System.out.println("The graph as an adjacency list:\n");
+        System.out.println("The graph as an adjacency list:");
         for (int i = 0; i < adjList.size(); ++i) {
             System.out.print(String.format("%d-> ",i));
             for (int j = 0; j < adjList.get(i).size(); ++j) {
