@@ -87,7 +87,7 @@ public class Graph {
      * Prints out a readable version of this graph's adjacency matrix
      */
     public void printAdjacencyMatrix() {
-        System.out.println("%nThe graph as an adjacency matrix:%n");
+        System.out.println("\nThe graph as an adjacency matrix:\n");
         for (ArrayList<Integer> row : adjMatrix) {
             for (int rowItem : row) {
                 System.out.print(Integer.toString(rowItem)+"   ");
