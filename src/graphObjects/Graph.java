@@ -36,7 +36,7 @@ public class Graph {
      * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
      */
     public void initAdjacencies(int n, double p) {
-        long start_time = System.currentTimeMillis();
+        long start_time = System.currentTimeMillis(); //SHould I start the time here, or below?
         do {
             start_time = System.currentTimeMillis();
 
@@ -80,14 +80,14 @@ public class Graph {
             }
         } while (!DFS(0, n));
         long end_time = System.currentTimeMillis();
-        System.out.println(String.format("Time to generate the graph: %d milliseconds%n",end_time-start_time));
+        System.out.println(String.format("Time to generate the graph: %d milliseconds",end_time-start_time));
     }
 
     /**
      * Prints out a readable version of this graph's adjacency matrix
      */
     public void printAdjacencyMatrix() {
-        System.out.println("The graph as an adjacency matrix:\n");
+        System.out.println("%nThe graph as an adjacency matrix:%n");
         for (ArrayList<Integer> row : adjMatrix) {
             for (int rowItem : row) {
                 System.out.print(Integer.toString(rowItem)+"   ");
