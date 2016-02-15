@@ -140,7 +140,7 @@ public class Graph {
     }
 
     public void printDFSInformation() {
-        System.out.println("Depth First Search:");
+        System.out.println("Depth-First Search:");
 
         ArrayList<Integer> printVertices = new ArrayList<>();
         ArrayList<Integer> printPredecessors = new ArrayList<>();
@@ -151,9 +151,14 @@ public class Graph {
         }
 
         System.out.println("Vertices:");
-        System.out.println(printVertices);
+        for (int item : printVertices) {
+            System.out.print(String.format("%d ",item));
+        }
+        System.out.print("\n");
 
         System.out.println("Predecessors:");
-        System.out.println(printPredecessors);
+        for (int item : printPredecessors) {
+            System.out.print(String.format("%d ",item));
+        }
     }
 }
