@@ -9,7 +9,7 @@ public class MST {
 
     public static void main(String[] args) {
 
-        String fileName = "input1"; //Default
+        String fileName = "";
         if (args.length > 0) {
             fileName = args[0];
         }
