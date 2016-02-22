@@ -5,8 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Main class
+ *
+ * @author Clay Benson
+ */
 public class MST {
 
+
+    /**
+     * Handles input processing, and holds the instance of the generated graph
+     * Additionally runs the public methods to print Matrix, List, and DFS information
+     * @param args space separated command line arguments
+     */
     public static void main(String[] args) {
 
         String fileName = "";

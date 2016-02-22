@@ -19,6 +19,13 @@ public class Graph {
     private Random edgeGen;
     private Random weightGen;
 
+    /**
+     * Constructor for the Graph object. Instantiates the random number generators, and sets their seeds.
+     * Additionally, upon creating a Graph object, it will initialize the adjacency list and matrix automatically
+     * @param n the number of vertices in the graph
+     * @param seed the seed of the edge random number generator to use. Will use 2*seed for the weight generator
+     * @param p the probability that 2 nodes are connected
+     */
     public Graph(int n, long seed, double p) {
         edgeGen = new Random();
         weightGen = new Random();
@@ -35,7 +42,7 @@ public class Graph {
      * @param n the number of vertices in the graph
      * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
      */
-    public void initAdjacencies(int n, double p) {
+    private void initAdjacencies(int n, double p) {
         long start_time = System.currentTimeMillis(); //SHould I start the time here, or below?
         do {
             start_time = System.currentTimeMillis();
@@ -78,7 +85,7 @@ public class Graph {
                     }
                 }
             }
-        } while (!DFS(0, n));
+        } while (!DFS(0, n)); //While the graph is not connected, keep making more graphs
         long end_time = System.currentTimeMillis();
         System.out.println(String.format("Time to generate the graph: %d milliseconds",end_time-start_time));
     }
@@ -118,7 +125,8 @@ public class Graph {
     }
 
     /**
-     * Performs a depth first search on the graph, and prints out the Vertices and Predecessors of those vertices
+     * Performs a depth first search on the graph (specifically on the adjList, as defined in the DFS_VISIT function),
+     * and prints out the Vertices and Predecessors of those vertices
      * @param vertex the ID of the vertex to start with
      * @param n the total number of vertices
      * @return boolean representing whether or not the graph is connected (if # of nodes visited = n)
@@ -130,6 +138,12 @@ public class Graph {
         return (visitedList.size() == n);
     }
 
+    /**
+     * Recursive function to visit a node in the adjacency list
+     * @param vertex the vertex to visit (will add this to the visited list)
+     * @param parent the parent of the node (normally will be the node you're currently on,
+     *               except -1 for the first call)
+     */
     public void DFS_VISIT(int vertex, int parent) {
         visitedList.add(vertex);
         predecessors.put(vertex, parent);
@@ -140,6 +154,9 @@ public class Graph {
         }
     }
 
+    /**
+     * Prints out the properly ordered information about the DFS that has been run on the graph
+     */
     public void printDFSInformation() {
         System.out.println("Depth-First Search:");
 
