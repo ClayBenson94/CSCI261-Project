@@ -63,6 +63,7 @@ public class MST {
             myGraph.printAdjacencyList();
             myGraph.printDFSInformation();
         }
+        System.out.println();
     }
 
     /**
