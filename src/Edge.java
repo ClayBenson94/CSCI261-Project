@@ -5,31 +5,53 @@
  */
 public class Edge {
 
-    private Vertex sourceVertex, destinationVertex;
+    private int sourceVertex, destinationVertex;
+    private int weight;
 
-    public Edge(Vertex sourceVertex, Vertex destinationVertex) {
+    public Edge(int sourceVertex, int destinationVertex, int weight) {
         this.sourceVertex = sourceVertex;
         this.destinationVertex = destinationVertex;
+        this.weight = weight;
     }
 
-    public Vertex getSourceVertex() {
+    public boolean lessThan(Edge compareEdge) {
+        if (this.getWeight() != compareEdge.getWeight()) {
+            return this.getWeight() < compareEdge.getWeight();
+        } else { //Weights are equal
+            if (this.getSourceVertex() != compareEdge.getSourceVertex()) {
+                return this.getSourceVertex() < compareEdge.getSourceVertex();
+            } else { //Weights are equal, source vertices are equal
+                return this.getDestinationVertex() < compareEdge.getDestinationVertex();
+            }
+        }
+    }
+
+    public int getSourceVertex() {
         return sourceVertex;
     }
 
-    public void setSourceVertex(Vertex sourceVertex) {
+    public void setSourceVertex(int sourceVertex) {
         this.sourceVertex = sourceVertex;
     }
 
-    public Vertex getDestinationVertex() {
+    public int getDestinationVertex() {
         return destinationVertex;
     }
 
-    public void setDestinationVertex(Vertex destinationVertex) {
+    public void setDestinationVertex(int destinationVertex) {
         this.destinationVertex = destinationVertex;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override
     public String toString() {
-        return String.format("I am an edge from %d to %d!", getSourceVertex().getIndex(), getDestinationVertex().getIndex());
+        return String.format("I am an edge from %d to %d!", this.getSourceVertex(), this.getDestinationVertex());
     }
 }
