@@ -1,7 +1,7 @@
-package graphObjects;
-
 /**
- * Created by Clay on 2/9/2016.
+ * Holds the necessary information to represent an edge in a graph
+ *
+ * @author Clay Benson
  */
 public class Edge {
 

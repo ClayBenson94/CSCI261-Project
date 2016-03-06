@@ -1,5 +1,3 @@
-package graphObjects;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,7 +6,7 @@ import java.util.Random;
 /**
  * Holds multiple representations of an undirected weighted graph.
  * Uses an Adjacency Matrix and an Adjacency Array
- * @author Clay
+ * @author Clay Benson
  */
 public class Graph {
 
@@ -43,7 +41,7 @@ public class Graph {
      * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
      */
     private void initAdjacencies(int n, double p) {
-        long start_time = System.currentTimeMillis(); //SHould I start the time here, or below?
+        long start_time = System.currentTimeMillis(); //Should I start the time here, or below?
         do {
             start_time = System.currentTimeMillis();
 
