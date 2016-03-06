@@ -16,6 +16,8 @@ public class Graph {
     private HashMap<Integer, Integer> predecessors;
     private Random edgeGen;
     private Random weightGen;
+    private ArrayList<Edge> matrixEdges;
+    private ArrayList<Edge> listEdges;
 
     /**
      * Constructor for the Graph object. Instantiates the random number generators, and sets their seeds.
@@ -29,10 +31,19 @@ public class Graph {
         weightGen = new Random();
         edgeGen.setSeed(seed);
         weightGen.setSeed(seed*2);
-
-        initAdjacencies(n, p);
     }
 
+    public void execute(int n, double p) {
+        initAdjacencies(n, p);
+
+        printAdjacencyMatrix();
+        printAdjacencyList();
+        printDFSInformation();
+
+        //Start timer here, maybe wrap everything in a
+        createMatrixEdges(n);
+        createListEdges(n);
+    }
 
     /**
      * Creates a randomly connected, undirected, weighted graph.
@@ -178,5 +189,50 @@ public class Graph {
         for (int item : printPredecessors) {
             System.out.print(String.format("%d ",item));
         }
+        System.out.println();
+    }
+
+    /**
+     * Initializes the matrix edges (ArrayList for sorting) with the values from the graph's adjacency matrix
+     */
+    public void createMatrixEdges(int n) {
+        int addWeight;
+        Edge edgeToAdd;
+        matrixEdges = new ArrayList<>();
+        for (int column = 0; column < n; ++column) {
+            for (int row = column+1; row < n; ++row) {
+                addWeight = adjMatrix.get(column).get(row);
+                if (addWeight != 0) {
+                    edgeToAdd = new Edge(column,row,addWeight);
+                    matrixEdges.add(edgeToAdd);
+                }
+            }
+        }
+        System.out.println(matrixEdges);
+    }
+
+    /**
+     * Initializes the list edges (ArrayList for sorting) with the values from the graph's adjacency matrix
+     *
+     * ================================================================================================
+     * Right now its not very intelligent and will add (like the adjList does) edges in both directions
+     * ================================================================================================
+     */
+    public void createListEdges(int n) {
+        int addWeight, addDestination;
+        Edge edgeToAdd;
+        listEdges = new ArrayList<>();
+        for (int i = 0; i < n; ++i) {
+            for (ArrayList<Integer> pair : adjList.get(i)) {
+                addDestination = pair.get(0);
+                addWeight = pair.get(1);
+                if (addWeight != 0) {
+                    edgeToAdd = new Edge(i,addDestination,addWeight);
+                    System.out.println(edgeToAdd);
+                    listEdges.add(edgeToAdd);
+                }
+            }
+        }
+        System.out.println(listEdges);
     }
 }

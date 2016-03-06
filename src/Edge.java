@@ -52,6 +52,10 @@ public class Edge {
 
     @Override
     public String toString() {
-        return String.format("I am an edge from %d to %d!", this.getSourceVertex(), this.getDestinationVertex());
+        return String.format("%d-%d(%d)",
+                this.getSourceVertex(),
+                this.getDestinationVertex(),
+                this.getWeight()
+        );
     }
 }
