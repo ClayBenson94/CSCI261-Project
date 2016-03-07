@@ -14,6 +14,27 @@ public class Edge {
         this.weight = weight;
     }
 
+    /**
+     * The messiest function you'll ever see. This determines if 2 edges are equal (a-->b with weight 5 is equal to b-->a with weight 5)
+     * @param compareEdge The edge object to compare to
+     * @return whether or not the 2 objects are equal
+     */
+    public boolean equals(Edge compareEdge) {
+        if (this.getWeight() == compareEdge.getWeight()) {
+            int mySource = this.getSourceVertex();
+            int compSource = compareEdge.getSourceVertex();
+            int myDestination = this.getDestinationVertex();
+            int compDestination = compareEdge.getDestinationVertex();
+            if (( (mySource == compSource)&&(myDestination == compDestination) ) || ( (mySource == compDestination)&&(myDestination == compSource) )) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public boolean lessThan(Edge compareEdge) {
         if (this.getWeight() != compareEdge.getWeight()) {
             return this.getWeight() < compareEdge.getWeight();

@@ -221,15 +221,24 @@ public class Graph {
     public void createListEdges(int n) {
         int addWeight, addDestination;
         Edge edgeToAdd;
+        boolean isDuplicate;
         listEdges = new ArrayList<>();
         for (int i = 0; i < n; ++i) {
             for (ArrayList<Integer> pair : adjList.get(i)) {
+                isDuplicate = false;
                 addDestination = pair.get(0);
                 addWeight = pair.get(1);
 
                 edgeToAdd = new Edge(i,addDestination,addWeight);
-                System.out.println(edgeToAdd);
-                listEdges.add(edgeToAdd);
+                for (Edge existingEdge : listEdges) { //Check for duplicates
+                    if (edgeToAdd.equals(existingEdge)) {
+                        isDuplicate = true;
+                    }
+                }
+
+                if (!isDuplicate) {
+                    listEdges.add(edgeToAdd);
+                }
             }
         }
         System.out.println(listEdges);
