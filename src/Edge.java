@@ -14,6 +14,12 @@ public class Edge {
         this.weight = weight;
     }
 
+    public Edge(Edge clone) { //Copy constructor, for making copies of lists for sorting
+        this.sourceVertex = clone.getSourceVertex();
+        this.destinationVertex = clone.getDestinationVertex();
+        this.weight = clone.getWeight();
+    }
+
     /**
      * The messiest function you'll ever see. This determines if 2 edges are equal (a-->b with weight 5 is equal to b-->a with weight 5)
      * @param compareEdge The edge object to compare to
@@ -45,6 +51,10 @@ public class Edge {
                 return this.getDestinationVertex() < compareEdge.getDestinationVertex();
             }
         }
+    }
+
+    public boolean greaterThan(Edge compareEdge) {
+        return !lessThan(compareEdge);
     }
 
     public int getSourceVertex() {
