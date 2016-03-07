@@ -226,11 +226,10 @@ public class Graph {
             for (ArrayList<Integer> pair : adjList.get(i)) {
                 addDestination = pair.get(0);
                 addWeight = pair.get(1);
-                if (addWeight != 0) {
-                    edgeToAdd = new Edge(i,addDestination,addWeight);
-                    System.out.println(edgeToAdd);
-                    listEdges.add(edgeToAdd);
-                }
+
+                edgeToAdd = new Edge(i,addDestination,addWeight);
+                System.out.println(edgeToAdd);
+                listEdges.add(edgeToAdd);
             }
         }
         System.out.println(listEdges);
