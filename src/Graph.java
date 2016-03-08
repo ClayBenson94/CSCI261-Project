@@ -51,9 +51,15 @@ public class Graph {
     public void edgeInsertionSort(ArrayList<Edge> edgeList, int n) {
         //SORT HERE
         //PRINT HERE
-        System.out.println("WHAT");
+        System.out.println("ORIGINAL LIST");
         System.out.println(edgeList);
-        System.out.println("WHAT");
+        System.out.println("SWAPPING FIRST AND LAST");
+        Edge temp = new Edge(edgeList.get(0));
+        Edge temp2 = new Edge(edgeList.get(edgeList.size()-1));
+        edgeList.set(0,temp2);
+        edgeList.set(edgeList.size()-1,temp);
+        System.out.println(edgeList);
+        System.out.println("FINISHED SWAPPAGE!");
     }
 
     /**
