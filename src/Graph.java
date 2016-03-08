@@ -1,7 +1,9 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.function.Function;
 
 /**
  * Holds multiple representations of an undirected weighted graph.
@@ -41,8 +43,17 @@ public class Graph {
         printDFSInformation();
 
         //Start timer here, maybe wrap everything in a
-        createMatrixEdges(n);
-        createListEdges(n);
+//        matrixEdges = createMatrixEdges(n);
+//        listEdges = createListEdges(n);
+        edgeInsertionSort(createListEdges(n), n);
+    }
+
+    public void edgeInsertionSort(ArrayList<Edge> edgeList, int n) {
+        //SORT HERE
+        //PRINT HERE
+        System.out.println("WHAT");
+        System.out.println(edgeList);
+        System.out.println("WHAT");
     }
 
     /**
@@ -195,7 +206,7 @@ public class Graph {
     /**
      * Initializes the matrix edges (ArrayList for sorting) with the values from the graph's adjacency matrix
      */
-    public void createMatrixEdges(int n) {
+    public ArrayList<Edge> createMatrixEdges(int n){
         int addWeight;
         Edge edgeToAdd;
         matrixEdges = new ArrayList<>();
@@ -209,6 +220,7 @@ public class Graph {
             }
         }
         System.out.println(matrixEdges);
+        return matrixEdges;
     }
 
     /**
@@ -218,7 +230,7 @@ public class Graph {
      * Right now its not very intelligent and will add (like the adjList does) edges in both directions
      * ================================================================================================
      */
-    public void createListEdges(int n) {
+    public ArrayList<Edge> createListEdges(int n) {
         int addWeight, addDestination;
         Edge edgeToAdd;
         boolean isDuplicate;
@@ -241,6 +253,6 @@ public class Graph {
                 }
             }
         }
-        System.out.println(listEdges);
+        return listEdges;
     }
 }
