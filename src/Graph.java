@@ -51,11 +51,9 @@ public class Graph {
         end_time = System.currentTimeMillis();
         System.out.println(String.format("Runtime: %d milliseconds\n",end_time-start_time));
 
-        //Insertion sort with LIST
-        start_time = System.currentTimeMillis();
-        edgeInsertionSort(createListEdges(n), n, "LIST");
-        end_time = System.currentTimeMillis();
-        System.out.println(String.format("Runtime: %d milliseconds\n",end_time-start_time));
+        //Count sort with MATRIX
+
+        //Quicksort with MATRIX
     }
 
     public void edgeInsertionSort(ArrayList<Edge> edgeList, int n, String source) {
