@@ -59,7 +59,7 @@ public class Graph {
         edgeList.set(0,temp2);
         edgeList.set(edgeList.size()-1,temp);
         System.out.println(edgeList);
-        System.out.println("FINISHED SWAPPAGE!");
+        System.out.println("FINISHED SWAPPING!");
     }
 
     /**
