@@ -42,24 +42,57 @@ public class Graph {
         printAdjacencyList();
         printDFSInformation();
 
-        //Start timer here, maybe wrap everything in a
-//        matrixEdges = createMatrixEdges(n);
-//        listEdges = createListEdges(n);
-        edgeInsertionSort(createListEdges(n), n);
+        //Sorts
+        long start_time, end_time;
+
+        //Insertion sort with MATRIX
+        start_time = System.currentTimeMillis();
+        edgeInsertionSort(createMatrixEdges(n), n, "MATRIX");
+        end_time = System.currentTimeMillis();
+        System.out.println(String.format("Runtime: %d milliseconds\n",end_time-start_time));
+
+        //Insertion sort with LIST
+        start_time = System.currentTimeMillis();
+        edgeInsertionSort(createListEdges(n), n, "LIST");
+        end_time = System.currentTimeMillis();
+        System.out.println(String.format("Runtime: %d milliseconds\n",end_time-start_time));
     }
 
-    public void edgeInsertionSort(ArrayList<Edge> edgeList, int n) {
-        //SORT HERE
-        //PRINT HERE
-        System.out.println("ORIGINAL LIST");
-        System.out.println(edgeList);
-        System.out.println("SWAPPING FIRST AND LAST");
-        Edge temp = new Edge(edgeList.get(0));
-        Edge temp2 = new Edge(edgeList.get(edgeList.size()-1));
-        edgeList.set(0,temp2);
-        edgeList.set(edgeList.size()-1,temp);
-        System.out.println(edgeList);
-        System.out.println("FINISHED SWAPPING!");
+    public void edgeInsertionSort(ArrayList<Edge> edgeList, int n, String source) {
+        System.out.println("===================================");
+        System.out.println(String.format("SORTED EDGES WITH %s USING INSERTION SORT",source));
+        int i, j;
+        for (i = 1; i < edgeList.size(); ++i) {
+            j = i;
+            while ((j > 0) && (edgeList.get(j-1).greaterThan(edgeList.get(j)))) {
+                swapEdges(edgeList, j, j-1);
+                j--;
+            }
+        }
+        printEdgeList(edgeList);
+        printEdgeWeightSum(edgeList);
+    }
+
+    private ArrayList<Edge> swapEdges(ArrayList<Edge> swapList, int pos1, int pos2) {
+        Edge item1 = new Edge(swapList.get(pos1));
+        Edge item2 = new Edge(swapList.get(pos2));
+        swapList.set(pos1,item2);
+        swapList.set(pos2,item1);
+        return swapList;
+    }
+
+    private void printEdgeWeightSum(ArrayList<Edge> sumList) {
+        int sum = 0;
+        for (Edge eachEdge : sumList) {
+            sum = sum + eachEdge.getWeight();
+        }
+        System.out.println(String.format("Total weight = %d",sum));
+    }
+
+    private void printEdgeList(ArrayList<Edge> printList) {
+        for (Edge eachEdge : printList) {
+            System.out.println(String.format("%d %d weight = %d",eachEdge.getSourceVertex(),eachEdge.getDestinationVertex(),eachEdge.getWeight()));
+        }
     }
 
     /**
@@ -225,7 +258,6 @@ public class Graph {
                 }
             }
         }
-        System.out.println(matrixEdges);
         return matrixEdges;
     }
 
