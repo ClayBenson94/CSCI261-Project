@@ -1,9 +1,7 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.function.Function;
 
 /**
  * Holds multiple representations of an undirected weighted graph.
@@ -20,6 +18,7 @@ public class Graph {
     private Random weightGen;
     private ArrayList<Edge> matrixEdges;
     private ArrayList<Edge> listEdges;
+    private long start_time;
 
     /**
      * Constructor for the Graph object. Instantiates the random number generators, and sets their seeds.
@@ -43,24 +42,29 @@ public class Graph {
         printDFSInformation();
 
         //Sorts
-        long start_time, end_time;
-
         //Insertion sort with MATRIX
-        start_time = System.currentTimeMillis();
-        edgeInsertionSort(createMatrixEdges(n), n, "MATRIX");
-        end_time = System.currentTimeMillis();
-        System.out.println(String.format("Runtime: %d milliseconds\n",end_time-start_time));
+        startTimer();
+        edgeInsertionSort(createMatrixEdges(n), "MATRIX");
+        stopTimer();
 
         //Count sort with MATRIX
+        //TODO
 
         //Quicksort with MATRIX
-        start_time = System.currentTimeMillis();
+        startTimer();
         ArrayList<Edge> QSMList = createMatrixEdges(n);
         edgeQuickSort(QSMList,0,QSMList.size()-1,"MATRIX");
-        end_time = System.currentTimeMillis();
-        System.out.println(String.format("Runtime: %d milliseconds\n",end_time-start_time));
+        stopTimer();
     }
 
+    /**
+     * This wrapper function is used so that each recursive call doesn't have to pass the source string around,
+     * as well as do printing once, instead of on every recursive call
+     * @param sortList the list to sort
+     * @param lo the low index of the section
+     * @param hi the high index of the section
+     * @param source A string (usually "MATRIX" or "LIST") representing where the Edge list was generated from
+     */
     public void edgeQuickSort(ArrayList<Edge> sortList, int lo, int hi, String source) {
         System.out.println("===================================");
         System.out.println(String.format("SORTED EDGES WITH %s USING QUICKSORT",source));
@@ -69,6 +73,12 @@ public class Graph {
         printEdgeWeightSum(sortList);
     }
 
+    /**
+     * Quick sort main function
+     * @param sortList the list to sort
+     * @param lo the low index of the section
+     * @param hi the high index of the section
+     */
     public void edgeQuickSort(ArrayList<Edge> sortList, int lo, int hi) {
         if (lo < hi) {
             int j = partition(sortList, lo, hi);
@@ -77,6 +87,13 @@ public class Graph {
         }
     }
 
+    /**
+     * Function used by edgeQuickSort to partition the ArrayList of edges
+     * @param partitionList the list to partition
+     * @param lo the low index of the section
+     * @param hi the high index of the section
+     * @return the pivot index
+     */
     private int partition(ArrayList<Edge> partitionList, int lo, int hi) {
         int i = lo;
         int j = hi+1;
@@ -98,7 +115,12 @@ public class Graph {
         return j;
     }
 
-    public void edgeInsertionSort(ArrayList<Edge> sortList, int n, String source) {
+    /**
+     * Performs an insertion sort on the given list and prints out the necessary information
+     * @param sortList the list to do the sort on
+     * @param source A string (usually "MATRIX" or "LIST") representing where the Edge list was generated from
+     */
+    public void edgeInsertionSort(ArrayList<Edge> sortList, String source) {
         System.out.println("===================================");
         System.out.println(String.format("SORTED EDGES WITH %s USING INSERTION SORT",source));
         int i, j;
@@ -113,6 +135,12 @@ public class Graph {
         printEdgeWeightSum(sortList);
     }
 
+    /**
+     * Swaps 2 edge objects by their indeces
+     * @param swapList the list to perform the swap on
+     * @param pos1 index 1 of an element to swap
+     * @param pos2 index 2 of the other element to swap
+     */
     private void swapEdges(ArrayList<Edge> swapList, int pos1, int pos2) {
         Edge item1 = new Edge(swapList.get(pos1));
         Edge item2 = new Edge(swapList.get(pos2));
@@ -120,6 +148,10 @@ public class Graph {
         swapList.set(pos2,item1);
     }
 
+    /**
+     * Sums the weights of all the Edge objects in an ArrayList of Edge objects
+     * @param sumList the list of Edge objects whose weights to sum
+     */
     private void printEdgeWeightSum(ArrayList<Edge> sumList) {
         int sum = 0;
         for (Edge eachEdge : sumList) {
@@ -128,6 +160,10 @@ public class Graph {
         System.out.println(String.format("Total weight = %d",sum));
     }
 
+    /**
+     * Prints a proper listing of edges, given an ArrayList of Edge objects
+     * @param printList the list to print
+     */
     private void printEdgeList(ArrayList<Edge> printList) {
         for (Edge eachEdge : printList) {
             System.out.println(String.format("%d %d weight = %d",eachEdge.getSourceVertex(),eachEdge.getDestinationVertex(),eachEdge.getWeight()));
@@ -141,9 +177,9 @@ public class Graph {
      * @param p the probability (0 to 1) that any given edge will be created between 2 nodes
      */
     private void initAdjacencies(int n, double p) {
-        long start_time = System.currentTimeMillis(); //Should I start the time here, or below?
+        startTimer(); //Start up here, or below?
         do {
-            start_time = System.currentTimeMillis();
+            startTimer();
 
             //Initialize the matrix to all zeroes to begin
             adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
@@ -184,8 +220,7 @@ public class Graph {
                 }
             }
         } while (!DFS(0, n)); //While the graph is not connected, keep making more graphs
-        long end_time = System.currentTimeMillis();
-        System.out.println(String.format("Time to generate the graph: %d milliseconds",end_time-start_time));
+        stopTimer();
     }
 
     /**
@@ -331,5 +366,19 @@ public class Graph {
             }
         }
         return listEdges;
+    }
+
+    /**
+     * Records the current time to the private start_time variable
+     */
+    private void startTimer() {
+        start_time = System.currentTimeMillis();
+    }
+
+    /**
+     * Uses the start_time private variable to print out how long it has been since the timer was started
+     */
+    private void stopTimer() {
+        System.out.println(String.format("Runtime: %d milliseconds\n",System.currentTimeMillis()-start_time));
     }
 }
