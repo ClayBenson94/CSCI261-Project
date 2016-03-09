@@ -34,6 +34,11 @@ public class Graph {
         numEdges = 0;
     }
 
+    /**
+     * Performs the main duties of the project. It will initialize the graph, print the representations, and run sorts
+     * @param n the number of vertices in the graph
+     * @param p the probability that any specific edge will be created
+     */
     public void execute(int n, double p) {
         initAdjacencies(n, p);
 
