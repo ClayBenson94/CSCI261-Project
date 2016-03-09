@@ -54,29 +54,70 @@ public class Graph {
         //Count sort with MATRIX
 
         //Quicksort with MATRIX
+        start_time = System.currentTimeMillis();
+        ArrayList<Edge> QSMList = createMatrixEdges(n);
+        edgeQuickSort(QSMList,0,QSMList.size()-1,"MATRIX");
+        end_time = System.currentTimeMillis();
+        System.out.println(String.format("Runtime: %d milliseconds\n",end_time-start_time));
     }
 
-    public void edgeInsertionSort(ArrayList<Edge> edgeList, int n, String source) {
+    public void edgeQuickSort(ArrayList<Edge> sortList, int lo, int hi, String source) {
+        System.out.println("===================================");
+        System.out.println(String.format("SORTED EDGES WITH %s USING QUICKSORT",source));
+        edgeQuickSort(sortList, lo, hi);
+        printEdgeList(sortList);
+        printEdgeWeightSum(sortList);
+    }
+
+    public void edgeQuickSort(ArrayList<Edge> sortList, int lo, int hi) {
+        if (lo < hi) {
+            int j = partition(sortList, lo, hi);
+            edgeQuickSort(sortList, lo, j-1);
+            edgeQuickSort(sortList, j+1, hi);
+        }
+    }
+
+    private int partition(ArrayList<Edge> partitionList, int lo, int hi) {
+        int i = lo;
+        int j = hi+1;
+
+        while (true) {
+            while (partitionList.get(++i).lessThan(partitionList.get(lo))) {
+                if (i == hi) break;
+            }
+            while (partitionList.get(lo).lessThan(partitionList.get(--j))) {
+                if (j == lo) break;
+            }
+
+            if (i >= j) break;
+            swapEdges(partitionList, i, j);
+        }
+
+
+        swapEdges(partitionList, lo, j);
+        return j;
+    }
+
+    public void edgeInsertionSort(ArrayList<Edge> sortList, int n, String source) {
         System.out.println("===================================");
         System.out.println(String.format("SORTED EDGES WITH %s USING INSERTION SORT",source));
         int i, j;
-        for (i = 1; i < edgeList.size(); ++i) {
+        for (i = 1; i < sortList.size(); ++i) {
             j = i;
-            while ((j > 0) && (edgeList.get(j-1).greaterThan(edgeList.get(j)))) {
-                swapEdges(edgeList, j, j-1);
+            while ((j > 0) && (sortList.get(j-1).greaterThan(sortList.get(j)))) {
+                swapEdges(sortList, j, j-1);
                 j--;
             }
         }
-        printEdgeList(edgeList);
-        printEdgeWeightSum(edgeList);
+        printEdgeList(sortList);
+        printEdgeWeightSum(sortList);
     }
 
-    private ArrayList<Edge> swapEdges(ArrayList<Edge> swapList, int pos1, int pos2) {
+    private void swapEdges(ArrayList<Edge> swapList, int pos1, int pos2) {
         Edge item1 = new Edge(swapList.get(pos1));
         Edge item2 = new Edge(swapList.get(pos2));
         swapList.set(pos1,item2);
         swapList.set(pos2,item1);
-        return swapList;
     }
 
     private void printEdgeWeightSum(ArrayList<Edge> sumList) {
