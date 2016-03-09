@@ -14,6 +14,7 @@ public class Graph {
     private ArrayList<ArrayList<ArrayList<Integer>>> adjList;
     private ArrayList<Integer> visitedList;
     private HashMap<Integer, Integer> predecessors;
+    private int numEdges;
     private Random edgeGen;
     private Random weightGen;
     private ArrayList<Edge> matrixEdges;
@@ -23,11 +24,9 @@ public class Graph {
     /**
      * Constructor for the Graph object. Instantiates the random number generators, and sets their seeds.
      * Additionally, upon creating a Graph object, it will initialize the adjacency list and matrix automatically
-     * @param n the number of vertices in the graph
      * @param seed the seed of the edge random number generator to use. Will use 2*seed for the weight generator
-     * @param p the probability that 2 nodes are connected
      */
-    public Graph(int n, long seed, double p) {
+    public Graph(long seed) {
         edgeGen = new Random();
         weightGen = new Random();
         edgeGen.setSeed(seed);
@@ -52,8 +51,7 @@ public class Graph {
 
         //Quicksort with MATRIX
         startTimer();
-        ArrayList<Edge> QSMList = createMatrixEdges(n);
-        edgeQuickSort(QSMList,0,QSMList.size()-1,"MATRIX");
+        edgeQuickSort(createMatrixEdges(n),0,numEdges-1,"MATRIX");
         stopTimer();
     }
 
@@ -216,6 +214,9 @@ public class Graph {
                         addList.add(column);
                         addList.add(weight);
                         adjList.get(row).add(addList);
+
+                        //Count edges
+                        numEdges++;
                     }
                 }
             }

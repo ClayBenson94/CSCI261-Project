@@ -55,7 +55,7 @@ public class MST {
         System.out.print("\n");
         System.out.println(String.format("TEST: n=%d, seed=%d, p=%s", n, seed, Double.toString(p)));
 
-        Graph myGraph = new Graph(n, seed, p);
+        Graph myGraph = new Graph(seed);
         if (n < 10) {
             myGraph.execute(n,p);
         }
