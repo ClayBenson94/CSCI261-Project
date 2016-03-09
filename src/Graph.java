@@ -31,6 +31,7 @@ public class Graph {
         weightGen = new Random();
         edgeGen.setSeed(seed);
         weightGen.setSeed(seed*2);
+        numEdges = 0;
     }
 
     public void execute(int n, double p) {
@@ -41,18 +42,8 @@ public class Graph {
         printDFSInformation();
 
         //Sorts
-        //Insertion sort with MATRIX
-        startTimer();
-        edgeInsertionSort(createMatrixEdges(n), "MATRIX");
-        stopTimer();
-
-        //Count sort with MATRIX
-        //TODO
-
-        //Quicksort with MATRIX
-        startTimer();
-        edgeQuickSort(createMatrixEdges(n),0,numEdges-1,"MATRIX");
-        stopTimer();
+        runMatrixSorts();
+        //TODO runListSorts();
     }
 
     /**
@@ -94,7 +85,7 @@ public class Graph {
      */
     private int partition(ArrayList<Edge> partitionList, int lo, int hi) {
         int i = lo;
-        int j = hi+1;
+        int j = hi + 1;
 
         while (true) {
             while (partitionList.get(++i).lessThan(partitionList.get(lo))) {
@@ -182,6 +173,7 @@ public class Graph {
             //Initialize the matrix to all zeroes to begin
             adjMatrix = new ArrayList<>(); //ArrayList of ArrayLists
             adjList = new ArrayList<>(); //ArrayList of ArrayLists of ArrayLists
+            numEdges = 0;
             for (int i = 0; i < n; ++i) {
                 adjMatrix.add(new ArrayList<>(Collections.nCopies(n, 0))); //ArrayList of Integers
                 adjList.add(new ArrayList<>()); //ArrayList of Integers
@@ -192,7 +184,7 @@ public class Graph {
             int weight;
             ArrayList<Integer> addList;
             for (int column = 0; column < n; ++column) {
-                for (int row = column+1; row < n; ++row) { //Dont want elements on the diagonal
+                for (int row = column+1; row < n; ++row) { //Don't want elements on the diagonal
                     connectRand = edgeGen.nextDouble();
                     if (connectRand <= p) {
 
@@ -320,12 +312,13 @@ public class Graph {
     /**
      * Initializes the matrix edges (ArrayList for sorting) with the values from the graph's adjacency matrix
      */
-    public ArrayList<Edge> createMatrixEdges(int n){
+    public ArrayList<Edge> createMatrixEdges(){
         int addWeight;
         Edge edgeToAdd;
+        int boardSize = adjMatrix.size();
         matrixEdges = new ArrayList<>();
-        for (int column = 0; column < n; ++column) {
-            for (int row = column+1; row < n; ++row) {
+        for (int column = 0; column < boardSize; ++column) {
+            for (int row = column+1; row < boardSize; ++row) {
                 addWeight = adjMatrix.get(column).get(row);
                 if (addWeight != 0) {
                     edgeToAdd = new Edge(column,row,addWeight);
@@ -338,17 +331,14 @@ public class Graph {
 
     /**
      * Initializes the list edges (ArrayList for sorting) with the values from the graph's adjacency matrix
-     *
-     * ================================================================================================
-     * Right now its not very intelligent and will add (like the adjList does) edges in both directions
-     * ================================================================================================
      */
-    public ArrayList<Edge> createListEdges(int n) {
+    public ArrayList<Edge> createListEdges() {
         int addWeight, addDestination;
         Edge edgeToAdd;
         boolean isDuplicate;
+        int boardSize = adjList.size();
         listEdges = new ArrayList<>();
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < boardSize; ++i) {
             for (ArrayList<Integer> pair : adjList.get(i)) {
                 isDuplicate = false;
                 addDestination = pair.get(0);
@@ -381,5 +371,20 @@ public class Graph {
      */
     private void stopTimer() {
         System.out.println(String.format("Runtime: %d milliseconds\n",System.currentTimeMillis()-start_time));
+    }
+
+    private void runMatrixSorts() {
+        //Insertion sort with MATRIX
+        startTimer();
+        edgeInsertionSort(createMatrixEdges(), "MATRIX");
+        stopTimer();
+
+        //Count sort with MATRIX
+        //TODO
+
+        //Quicksort with MATRIX
+        startTimer();
+        edgeQuickSort(createMatrixEdges(),0,numEdges-1,"MATRIX");
+        stopTimer();
     }
 }
