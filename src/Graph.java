@@ -51,6 +51,27 @@ public class Graph {
         //TODO runListSorts();
     }
 
+    public void edgeCountSort(ArrayList<Edge> sortList) {
+        int len = sortList.size();
+        int r = edgeWeightMax(sortList)+1; //0 to 5, r = 6
+        ArrayList<Edge> aux = new ArrayList<>();
+        ArrayList<Integer> count = new ArrayList<>();
+        for (int i = 0; i < r+1; i++) { //Add R+1 elements
+            count.add(0);
+        }
+
+        for (int i = 0; i < len; i++) { //Fill count array
+            count.set(sortList.get(i).getWeight()+1,count.get(sortList.get(i).getWeight()+1)+1); //count[[sortList]+1}++
+        }
+
+        for (int i = 0; i < r; i++) { //Cumulative sum
+            count.set(i+1,count.get(i+1)+count.get(i));
+        }
+
+
+
+    }
+
     /**
      * This wrapper function is used so that each recursive call doesn't have to pass the source string around,
      * as well as do printing once, instead of on every recursive call
@@ -152,6 +173,21 @@ public class Graph {
             sum = sum + eachEdge.getWeight();
         }
         System.out.println(String.format("Total weight = %d",sum));
+    }
+
+    /**
+     * Returns the largest weight in a list of Edge objects
+     * @param maxList the list to check the max weight of
+     * @return the max weight
+     */
+    private int edgeWeightMax(ArrayList<Edge> maxList) {
+        int max = 0;
+        for (Edge eachEdge : maxList) {
+            if (eachEdge.getWeight() > max) {
+                max = eachEdge.getWeight();
+            }
+        }
+        return max;
     }
 
     /**
@@ -390,7 +426,7 @@ public class Graph {
         stopTimer();
 
         //Count sort with MATRIX
-        //TODO
+        edgeCountSort(createMatrixEdges());
 
         //Quicksort with MATRIX
         startTimer();
