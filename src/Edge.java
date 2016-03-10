@@ -20,6 +20,12 @@ public class Edge {
         this.weight = clone.getWeight();
     }
 
+    public Edge() {
+        this.sourceVertex = 0;
+        this.destinationVertex = 0;
+        this.weight = 0;
+    }
+
     /**
      * The messiest function you'll ever see. This determines if 2 edges are equal (a-->b with weight 5 is equal to b-->a with weight 5)
      * @param compareEdge The edge object to compare to
