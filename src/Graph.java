@@ -55,6 +55,11 @@ public class Graph {
         runListSorts();
     }
 
+    /**
+     * Uses count sourt to sort a list of edge objects
+     * @param sortList the list to sort
+     * @param source the source (usually "MATRIX" and "LIST") of the Edge list
+     */
     public void edgeCountSort(ArrayList<Edge> sortList, String source) {
         System.out.println("===================================");
         System.out.println(String.format("SORTED EDGES WITH %s USING COUNT SORT",source));
