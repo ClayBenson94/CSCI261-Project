@@ -166,13 +166,40 @@ public class Graph {
         System.out.println("===================================");
         System.out.println(String.format("SORTED EDGES WITH %s USING INSERTION SORT",source));
         int i, j;
-        for (i = 1; i < sortList.size(); ++i) {
-            j = i;
-            while ((j > 0) && (sortList.get(j-1).greaterThan(sortList.get(j)))) {
-                swapEdges(sortList, j, j-1);
+        int len = sortList.size();
+
+        /**
+         * Implementation of Insertion sort for Roxanne Canosa's in class slides. See commented function below for
+         * more details.
+         *
+         * With about 300 items, this will run in about 3 seconds (on my computer)
+         */
+//        for (i = 1; i < len; ++i) {
+//            j = i;
+//            while ((j > 0) && (sortList.get(j-1).greaterThan(sortList.get(j)))) {
+//                swapEdges(sortList, j, j-1);
+//                j--;
+//            }
+//        }
+
+        /**
+         * The below implementation of Insertion sort tends to be much faster than the above one.
+         * The above function is from Roxanne Canosa's slides, and I left it commented in here in case the grade of this
+         * project is at all based around which implementation of Insertion sort we chose. If need be, the above one,
+         * while it is slower, can be uncommented and used, as it is the exact one listed in the lecture slides.
+         *
+         * With about 300 items, this will run in about 1 second (on my computer)
+         */
+        for (i = 1; i < len; ++i) {
+            Edge curEdge = new Edge(sortList.get(i));
+            j = i - 1;
+            while ((j >= 0) && (sortList.get(j).greaterThan(curEdge))) {
+                sortList.set(j+1, sortList.get(j) ); //sortList[j+1] = sortList[j], move element up 1
                 j--;
             }
+            sortList.set(j+1, curEdge);
         }
+
         printEdgeList(sortList);
         printEdgeWeightSum(sortList);
     }
