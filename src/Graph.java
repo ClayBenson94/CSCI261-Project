@@ -405,23 +405,15 @@ public class Graph {
     public ArrayList<Edge> createListEdges() {
         int addWeight, addDestination;
         Edge edgeToAdd;
-        boolean isDuplicate;
         int boardSize = adjList.size();
         listEdges = new ArrayList<>();
         for (int i = 0; i < boardSize; ++i) {
             for (ArrayList<Integer> pair : adjList.get(i)) {
-                isDuplicate = false;
                 addDestination = pair.get(0);
                 addWeight = pair.get(1);
 
-                edgeToAdd = new Edge(i,addDestination,addWeight);
-                for (Edge existingEdge : listEdges) { //Check for duplicates
-                    if (edgeToAdd.equals(existingEdge)) {
-                        isDuplicate = true;
-                    }
-                }
-
-                if (!isDuplicate) {
+                if (i < addDestination) { //If we haven't done this edge yet (they go in increasing order)
+                    edgeToAdd = new Edge(i,addDestination,addWeight);
                     listEdges.add(edgeToAdd);
                 }
             }
