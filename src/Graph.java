@@ -71,9 +71,8 @@ public class Graph {
     /**
      * Uses count sourt to sort a list of edge objects
      * @param sortList the list to sort
-     * @param source the source (usually "MATRIX" and "LIST") of the Edge list
      */
-    public ArrayList<Edge> edgeCountSort(ArrayList<Edge> sortList, String source) {
+    public ArrayList<Edge> edgeCountSort(ArrayList<Edge> sortList) {
         int len = sortList.size();
         int r = edgeWeightMax(sortList)+1; //0 to 5, r = 6
         ArrayList<Edge> aux = new ArrayList<>();
@@ -109,30 +108,18 @@ public class Graph {
     }
 
     /**
-     * This wrapper function is used so that each recursive call doesn't have to pass the source string around,
-     * as well as do printing once, instead of on every recursive call
-     * @param sortList the list to sort
-     * @param lo the low index of the section
-     * @param hi the high index of the section
-     * @param source A string (usually "MATRIX" or "LIST") representing where the Edge list was generated from
-     */
-    public ArrayList<Edge> edgeQuickSort(ArrayList<Edge> sortList, int lo, int hi, String source) {
-        edgeQuickSort(sortList, lo, hi);
-        return sortList;
-    }
-
-    /**
-     * Quick sort main function
+     * Quick sort function
      * @param sortList the list to sort
      * @param lo the low index of the section
      * @param hi the high index of the section
      */
-    public void edgeQuickSort(ArrayList<Edge> sortList, int lo, int hi) {
+    public ArrayList<Edge> edgeQuickSort(ArrayList<Edge> sortList, int lo, int hi) {
         if (lo < hi) {
             int j = partition(sortList, lo, hi);
             edgeQuickSort(sortList, lo, j-1);
             edgeQuickSort(sortList, j+1, hi);
         }
+        return sortList;
     }
 
     /**
@@ -171,9 +158,8 @@ public class Graph {
     /**
      * Performs an insertion sort on the given list and prints out the necessary information
      * @param sortList the list to do the sort on
-     * @param source A string (usually "MATRIX" or "LIST") representing where the Edge list was generated from
      */
-    public ArrayList<Edge> edgeInsertionSort(ArrayList<Edge> sortList, String source) {
+    public ArrayList<Edge> edgeInsertionSort(ArrayList<Edge> sortList) {
         int i, j;
         int len = sortList.size();
 
@@ -478,7 +464,7 @@ public class Graph {
 
         //Insertion sort with MATRIX
         startTimer();
-        insertionSorted_matrixEdges = edgeInsertionSort(createMatrixEdges(), source);
+        insertionSorted_matrixEdges = edgeInsertionSort(createMatrixEdges());
         printSortHeader(source, "INSERTION SORT");
         printEdgeList(insertionSorted_matrixEdges);
         printEdgeWeightSum(insertionSorted_matrixEdges);
@@ -486,7 +472,7 @@ public class Graph {
 
         //Count sort with MATRIX
         startTimer();
-        countSorted_matrixEdges = edgeCountSort(createMatrixEdges(), source);
+        countSorted_matrixEdges = edgeCountSort(createMatrixEdges());
         printSortHeader(source, "COUNT SORT");
         printEdgeList(countSorted_matrixEdges);
         printEdgeWeightSum(countSorted_matrixEdges);
@@ -494,7 +480,7 @@ public class Graph {
 
         //Quicksort with MATRIX
         startTimer();
-        quickSorted_matrixEdges = edgeQuickSort(createMatrixEdges(),0,numEdges-1,source);
+        quickSorted_matrixEdges = edgeQuickSort(createMatrixEdges(),0,numEdges-1);
         printSortHeader(source, "QUICKSORT");
         printEdgeList(quickSorted_matrixEdges);
         printEdgeWeightSum(quickSorted_matrixEdges);
@@ -509,7 +495,7 @@ public class Graph {
 
         //Insertion sort with LIST
         startTimer();
-        insertionSorted_listEdges =  edgeInsertionSort(createListEdges(), source);
+        insertionSorted_listEdges =  edgeInsertionSort(createListEdges());
         printSortHeader(source, "INSERTION SORT");
         printEdgeList(insertionSorted_listEdges);
         printEdgeWeightSum(insertionSorted_listEdges);
@@ -517,7 +503,7 @@ public class Graph {
 
         //Count sort with LIST
         startTimer();
-        countSorted_listEdges =  edgeCountSort(createListEdges(), source);
+        countSorted_listEdges =  edgeCountSort(createListEdges());
         printSortHeader(source, "COUNT SORT");
         printEdgeList(countSorted_listEdges);
         printEdgeWeightSum(countSorted_listEdges);
@@ -525,7 +511,7 @@ public class Graph {
 
         //Quicksort with LIST
         startTimer();
-        quickSorted_listEdges = edgeQuickSort(createListEdges(),0,numEdges-1,source);
+        quickSorted_listEdges = edgeQuickSort(createListEdges(),0,numEdges-1);
         printSortHeader(source, "QUICKSORT");
         printEdgeList(quickSorted_listEdges);
         printEdgeWeightSum(quickSorted_listEdges);
