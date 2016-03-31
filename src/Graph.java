@@ -491,15 +491,11 @@ public class Graph {
                 MST.add(new Edge(curEdge)); //Add copy of edge to MST
                 includedCount++;
                 union(root1,root2);
-                System.out.println(disjointVertices);
-                System.out.println(includedCount);
                 if (includedCount >= numVertices-1) {
                     return MST;
                 }
             }
         }
-
-        System.out.println(disjointVertices);
         return new ArrayList<>();
     }
 
