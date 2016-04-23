@@ -68,6 +68,7 @@ public class Graph {
 
         runMatrixAlgorithms();
         runListAlgorithms();
+        runPrimAlgorithm();
     }
 
     /**
@@ -157,6 +158,11 @@ public class Graph {
         System.out.println(String.format("%s WITH %s USING %s",algorithm,listType,sortType));
     }
 
+    public void printPrimHeader(String algorithm, String listType) {
+        System.out.println("===================================");
+        System.out.println(String.format("%s WITH %s",algorithm,listType));
+    }
+
     /**
      * Performs an insertion sort on the given list and prints out the necessary information
      * @param sortList the list to do the sort on
@@ -217,12 +223,12 @@ public class Graph {
      * Sums the weights of all the Edge objects in an ArrayList of Edge objects
      * @param sumList the list of Edge objects whose weights to sum
      */
-    private void printEdgeWeightSum(ArrayList<Edge> sumList) {
+    private void printEdgeWeightSum(ArrayList<Edge> sumList, String method) {
         int sum = 0;
         for (Edge eachEdge : sumList) {
             sum = sum + eachEdge.getWeight();
         }
-        System.out.println(String.format("\nTotal weight of MST using Kruskal: %d",sum));
+        System.out.println(String.format("\nTotal weight of MST using %s: %d",method,sum));
     }
 
     /**
@@ -499,6 +505,35 @@ public class Graph {
         return new ArrayList<>();
     }
 
+    private ArrayList<Edge> prim(ArrayList<Edge> primList) {
+        //TODO Implement Prim's Algorithm
+        ArrayList<Edge> MST = new ArrayList<>();
+        ArrayList<Vertex> MSTVertices = new ArrayList<>();
+
+        Vertex vertexToAdd;
+        Vertex negativeParent = new Vertex(-1,null,0);
+        negativeParent.setParent(negativeParent);
+        //Add 0
+        vertexToAdd = new Vertex(0,negativeParent,0);
+        MSTVertices.add(vertexToAdd);
+
+        int num = numVertices-1;
+        PriorityQueue pq = new PriorityQueue(num);
+        int u = 0;
+        while (num > 0) {
+            for (Edge curEdge : primList) {
+                if (curEdge.getSourceVertex() == u) {
+                    //Todo what
+                }
+            }
+            num--;
+        }
+
+
+
+        return MST;
+    }
+
     private Vertex find(Vertex findVertex) {
         if (findVertex.getParent().getIndex() == findVertex.getIndex()) {
             return findVertex;
@@ -520,7 +555,7 @@ public class Graph {
         insertionSorted_matrixEdges = kruskal(insertionSorted_matrixEdges);
         printHeader(algorithm, source, "INSERTION SORT");
         printEdgeList(insertionSorted_matrixEdges);
-        printEdgeWeightSum(insertionSorted_matrixEdges);
+        printEdgeWeightSum(insertionSorted_matrixEdges,"Kruskal");
         stopTimer();
 
         //Count sort with MATRIX
@@ -529,7 +564,7 @@ public class Graph {
         countSorted_matrixEdges = kruskal(countSorted_matrixEdges);
         printHeader(algorithm, source, "COUNT SORT");
         printEdgeList(countSorted_matrixEdges);
-        printEdgeWeightSum(countSorted_matrixEdges);
+        printEdgeWeightSum(countSorted_matrixEdges,"Kruskal");
         stopTimer();
 
         //Quicksort with MATRIX
@@ -538,7 +573,7 @@ public class Graph {
         quickSorted_matrixEdges = kruskal(quickSorted_matrixEdges);
         printHeader(algorithm, source, "QUICKSORT");
         printEdgeList(quickSorted_matrixEdges);
-        printEdgeWeightSum(quickSorted_matrixEdges);
+        printEdgeWeightSum(quickSorted_matrixEdges,"Kruskal");
         stopTimer();
     }
 
@@ -556,7 +591,7 @@ public class Graph {
         insertionSorted_listEdges = kruskal(insertionSorted_listEdges);
         printHeader(algorithm, source, "INSERTION SORT");
         printEdgeList(insertionSorted_listEdges);
-        printEdgeWeightSum(insertionSorted_listEdges);
+        printEdgeWeightSum(insertionSorted_listEdges,"Kruskal");
         stopTimer();
 
         //Count sort with LIST
@@ -565,7 +600,7 @@ public class Graph {
         countSorted_listEdges = kruskal(countSorted_listEdges);
         printHeader(algorithm, source, "COUNT SORT");
         printEdgeList(countSorted_listEdges);
-        printEdgeWeightSum(countSorted_listEdges);
+        printEdgeWeightSum(countSorted_listEdges,"Kruskal");
         stopTimer();
 
         //Quicksort with LIST
@@ -574,7 +609,15 @@ public class Graph {
         quickSorted_listEdges = kruskal(quickSorted_listEdges);
         printHeader(algorithm, source, "QUICKSORT");
         printEdgeList(quickSorted_listEdges);
-        printEdgeWeightSum(quickSorted_listEdges);
+        printEdgeWeightSum(quickSorted_listEdges,"Kruskal");
+        stopTimer();
+    }
+
+    private void runPrimAlgorithm() {
+        //TODO All the stuff I put off until now
+        String algorithm = "PRIM";
+        startTimer();
+        printPrimHeader(algorithm, "ADJACENCY MATRIX");
         stopTimer();
     }
 

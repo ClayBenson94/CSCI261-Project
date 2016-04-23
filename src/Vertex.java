@@ -13,6 +13,12 @@ public class Vertex {
         this.rank = rank;
     }
 
+    public Vertex(Vertex clone) {
+        this.index = clone.getIndex();
+        this.parent = new Vertex(clone.getParent());
+        this.rank = clone.getRank();
+    }
+
     public int getIndex() {
         return index;
     }
