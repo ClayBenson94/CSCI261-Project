@@ -9,7 +9,9 @@ public class PriorityQueue {
 
     public PriorityQueue(int numItems) {
         this.numItems = numItems;
-        for (int i = 1; i < numItems; ++i) {
+        pq = new ArrayList<>(numItems+1);
+        pq.add(null);
+        for (int i = 0; i < numItems; ++i) {
             pq.add(new pqItem(i));
         }
         heapify();
@@ -54,6 +56,10 @@ public class PriorityQueue {
         pqItem item2 = new pqItem(pq.get(j));
         pq.set(i,item2);
         pq.set(j,item1);
+    }
+
+    public ArrayList<pqItem> getPq() {
+        return pq;
     }
 
 }

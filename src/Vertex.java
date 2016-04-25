@@ -15,7 +15,7 @@ public class Vertex {
 
     public Vertex(Vertex clone) {
         this.index = clone.getIndex();
-        this.parent = new Vertex(clone.getParent());
+        this.parent = clone.getParent();
         this.rank = clone.getRank();
     }
 

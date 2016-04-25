@@ -618,6 +618,35 @@ public class Graph {
         String algorithm = "PRIM";
         startTimer();
         printPrimHeader(algorithm, "ADJACENCY MATRIX");
+        PriorityQueue myPQ = new PriorityQueue(6);
+
+        pqItem testItem;
+
+        testItem = myPQ.getPq().get(1);
+        testItem.setKey(6);
+        myPQ.getPq().set(1, testItem);
+        testItem = myPQ.getPq().get(2);
+        testItem.setKey(3);
+        myPQ.getPq().set(2, testItem);
+        testItem = myPQ.getPq().get(3);
+        testItem.setKey(1);
+        myPQ.getPq().set(3, testItem);
+        testItem = myPQ.getPq().get(4);
+        testItem.setKey(5);
+        myPQ.getPq().set(4, testItem);
+        testItem = myPQ.getPq().get(5);
+        testItem.setKey(2);
+        myPQ.getPq().set(5, testItem);
+        testItem = myPQ.getPq().get(6);
+        testItem.setKey(4);
+        myPQ.getPq().set(6, testItem);
+
+        System.out.println("Hi");
+        myPQ.heapify();
+        System.out.println("Hi");
+
+
+
         stopTimer();
     }
 
