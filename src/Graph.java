@@ -535,19 +535,15 @@ public class Graph {
                     //If that edge < item.getKey(), update it and the parent (based off edge)
             for (pqItem item : primPQ.getPq()) {
                 if (item != null) {
-                    for (int curNeighbor : neighbors.get(primVertices.get(primVertices.size() - 1).getIndex())) { //For neighbors of most recent
-                        if (adjMatrix.get(item.getVertex()).get(curNeighbor) < item.getKey()) {
-                            if (adjMatrix.get(item.getVertex()).get(curNeighbor) != 0) {
-                                //TODO Update
-                                item.setKey(adjMatrix.get(item.getVertex()).get(curNeighbor));
-                                item.setParent(0); //Todo what
-                            }
-                        }
-                        if (adjMatrix.get(curNeighbor).get(item.getVertex()) < item.getKey()) {
-                            if (adjMatrix.get(curNeighbor).get(item.getVertex()) != 0) {
-                                //TODO Update
-                                item.setKey(adjMatrix.get(curNeighbor).get(item.getVertex()));
-                                item.setParent(0); //Todo what
+                    Vertex lastVertex = primVertices.get(primVertices.size() - 1);
+                    for (int curNeighbor : neighbors.get(lastVertex.getIndex())) { //For neighbors of most recent
+                        int weight = adjMatrix.get(curNeighbor).get(lastVertex.getIndex());
+                        if (weight != 0) {
+                            if (weight < item.getKey()) {
+                                if (item.getVertex() == curNeighbor) {
+                                    item.setParent(lastVertex.getIndex());
+                                    item.setKey(weight);
+                                }
                             }
                         }
                     }

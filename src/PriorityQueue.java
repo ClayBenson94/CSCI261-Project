@@ -12,7 +12,7 @@ public class PriorityQueue {
         pq = new ArrayList<>(numItems+1);
         pq.add(null);
         for (int i = 0; i < numItems; ++i) {
-            pq.add(new pqItem(i));
+            pq.add(new pqItem(i+1));
         }
         heapify();
     }
