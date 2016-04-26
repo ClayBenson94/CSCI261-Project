@@ -66,18 +66,18 @@ public class PriorityQueue {
 
 class pqItem {
     private int key;
-    private Vertex vertex;
+    private int vertex;
+    private int parent;
 
-    public pqItem(int vertex) {
+    public pqItem(int index) {
         this.key = Integer.MAX_VALUE;
-        Vertex negativeParent = new Vertex(-1,null,0);
-        negativeParent.setParent(negativeParent);
-        this.vertex = new Vertex(vertex,negativeParent,0);
+        this.vertex = index;
+        this.parent = -1;
     }
 
     public pqItem(pqItem clone) {
         this.key = clone.getKey();
-        this.vertex = new Vertex(clone.getVertex());
+        this.vertex = clone.getVertex();
     }
 
     public int getKey() {
@@ -88,7 +88,15 @@ class pqItem {
         this.key = key;
     }
 
-    public Vertex getVertex() {
+    public int getVertex() {
         return this.vertex;
+    }
+
+    public int getParent() {
+        return this.parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
     }
 }

@@ -530,15 +530,36 @@ public class Graph {
         while (num > 0) {
             //Step 1
             //For each item in PQ
-                //Find neighbors of that vertex (using neighbors HashMap)
-                //Find edge item-neighbor OR neighbor-item
-                //If that edge < item.getKey(), update it and the parent (based off edge)
+                //For each neighbor of that vertex
+                    //Find edge item-neighbor OR neighbor-item
+                    //If that edge < item.getKey(), update it and the parent (based off edge)
             for (pqItem item : primPQ.getPq()) {
-
+                if (item != null) {
+                    for (int curNeighbor : neighbors.get(primVertices.get(primVertices.size() - 1).getIndex())) { //For neighbors of most recent
+                        if (adjMatrix.get(item.getVertex()).get(curNeighbor) < item.getKey()) {
+                            if (adjMatrix.get(item.getVertex()).get(curNeighbor) != 0) {
+                                //TODO Update
+                                item.setKey(adjMatrix.get(item.getVertex()).get(curNeighbor));
+                                item.setParent(0); //Todo what
+                            }
+                        }
+                        if (adjMatrix.get(curNeighbor).get(item.getVertex()) < item.getKey()) {
+                            if (adjMatrix.get(curNeighbor).get(item.getVertex()) != 0) {
+                                //TODO Update
+                                item.setKey(adjMatrix.get(curNeighbor).get(item.getVertex()));
+                                item.setParent(0); //Todo what
+                            }
+                        }
+                    }
+                }
             }
 
+            //Step 2
+            primPQ.heapify();
 
-            num--;
+
+//            num--;
+            num = 0;
         }
 
 //        PriorityQueue myPQ = new PriorityQueue(6);
@@ -564,9 +585,9 @@ public class Graph {
 //        testItem.setKey(4);
 //        myPQ.getPq().set(6, testItem);
 //
-//        System.out.println("Hi");
-//        myPQ.heapify();
-//        System.out.println("Hi");
+        System.out.println("Hi");
+        primPQ.heapify();
+        System.out.println("Hi");
 
         return MST;
     }
