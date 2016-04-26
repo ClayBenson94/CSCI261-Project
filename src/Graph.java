@@ -529,7 +529,13 @@ public class Graph {
         int num = numVertices-1;
         while (num > 0) {
             //Step 1
+            //For each item in PQ
+                //Find neighbors of that vertex (using neighbors HashMap)
+                //Find edge item-neighbor OR neighbor-item
+                //If that edge < item.getKey(), update it and the parent (based off edge)
+            for (pqItem item : primPQ.getPq()) {
 
+            }
 
 
             num--;
