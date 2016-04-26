@@ -508,28 +508,34 @@ public class Graph {
     private ArrayList<Edge> prim(ArrayList<Edge> primList) {
         //TODO Implement Prim's Algorithm
         ArrayList<Edge> MST = new ArrayList<>();
-        ArrayList<Vertex> MSTVertices = new ArrayList<>();
-
-        Vertex vertexToAdd;
-        Vertex negativeParent = new Vertex(-1,null,0);
-        negativeParent.setParent(negativeParent);
-        //Add 0
-        vertexToAdd = new Vertex(0,negativeParent,0);
-        MSTVertices.add(vertexToAdd);
-
-        int num = numVertices-1;
-        PriorityQueue pq = new PriorityQueue(num);
-        int u = 0;
-        while (num > 0) {
-            for (Edge curEdge : primList) {
-                if (curEdge.getSourceVertex() == u) {
-                    //Todo what
-                }
-            }
-            num--;
-        }
 
 
+        PriorityQueue myPQ = new PriorityQueue(6);
+
+        pqItem testItem;
+
+        testItem = myPQ.getPq().get(1);
+        testItem.setKey(6);
+        myPQ.getPq().set(1, testItem);
+        testItem = myPQ.getPq().get(2);
+        testItem.setKey(3);
+        myPQ.getPq().set(2, testItem);
+        testItem = myPQ.getPq().get(3);
+        testItem.setKey(1);
+        myPQ.getPq().set(3, testItem);
+        testItem = myPQ.getPq().get(4);
+        testItem.setKey(5);
+        myPQ.getPq().set(4, testItem);
+        testItem = myPQ.getPq().get(5);
+        testItem.setKey(2);
+        myPQ.getPq().set(5, testItem);
+        testItem = myPQ.getPq().get(6);
+        testItem.setKey(4);
+        myPQ.getPq().set(6, testItem);
+
+        System.out.println("Hi");
+        myPQ.heapify();
+        System.out.println("Hi");
 
         return MST;
     }
@@ -618,36 +624,14 @@ public class Graph {
         String algorithm = "PRIM";
         startTimer();
         printPrimHeader(algorithm, "ADJACENCY MATRIX");
-        PriorityQueue myPQ = new PriorityQueue(6);
-
-        pqItem testItem;
-
-        testItem = myPQ.getPq().get(1);
-        testItem.setKey(6);
-        myPQ.getPq().set(1, testItem);
-        testItem = myPQ.getPq().get(2);
-        testItem.setKey(3);
-        myPQ.getPq().set(2, testItem);
-        testItem = myPQ.getPq().get(3);
-        testItem.setKey(1);
-        myPQ.getPq().set(3, testItem);
-        testItem = myPQ.getPq().get(4);
-        testItem.setKey(5);
-        myPQ.getPq().set(4, testItem);
-        testItem = myPQ.getPq().get(5);
-        testItem.setKey(2);
-        myPQ.getPq().set(5, testItem);
-        testItem = myPQ.getPq().get(6);
-        testItem.setKey(4);
-        myPQ.getPq().set(6, testItem);
-
-        System.out.println("Hi");
-        myPQ.heapify();
-        System.out.println("Hi");
-
-
-
+        prim(createMatrixEdges());
         stopTimer();
+
+        startTimer();
+        printPrimHeader(algorithm, "ADJACENCY LIST");
+        prim(createListEdges());
+        stopTimer();
+
     }
 
 }
