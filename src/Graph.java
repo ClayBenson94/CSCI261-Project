@@ -553,9 +553,24 @@ public class Graph {
             //Step 2
             primPQ.heapify();
 
+            //Step 3
+            pqItem root = primPQ.getPq().get(1);
+            Vertex parentVertex = new Vertex(root.getParent(), null, 0);
+            parentVertex.setParent(parentVertex);
+            Vertex addVertex = new Vertex(root.getVertex(), parentVertex, 0);
+            primVertices.add(addVertex);
+            MST.add(new Edge(root.getParent(),root.getVertex(),root.getKey()));
+//            primPQ.getPq().set(1, primPQ.getPq().get(primPQ.getPq().size()-1));
+            primPQ.getPq().set(1, primPQ.getPq().get(primPQ.getNumItems()));
+//            primPQ.getPq().remove(primPQ.getPq().size()-1);
+            primPQ.getPq().remove(primPQ.getNumItems());
+            primPQ.setNumItems(primPQ.getNumItems()-1);
 
-//            num--;
-            num = 0;
+            //Step 4 lul
+
+
+            //Step 5
+            num--;
         }
 
 //        PriorityQueue myPQ = new PriorityQueue(6);
@@ -582,7 +597,6 @@ public class Graph {
 //        myPQ.getPq().set(6, testItem);
 //
         System.out.println("Hi");
-        primPQ.heapify();
         System.out.println("Hi");
 
         return MST;

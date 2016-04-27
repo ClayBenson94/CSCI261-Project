@@ -17,6 +17,14 @@ public class PriorityQueue {
         heapify();
     }
 
+    public void setNumItems(int numItems) {
+        this.numItems = numItems;
+    }
+
+    public int getNumItems() {
+        return this.numItems;
+    }
+
     public void heapify() {
         for (int k = numItems/2; k >= 1; k--) {
             sink(k);
@@ -78,6 +86,7 @@ class pqItem {
     public pqItem(pqItem clone) {
         this.key = clone.getKey();
         this.vertex = clone.getVertex();
+        this.parent = clone.getParent();
     }
 
     public int getKey() {
